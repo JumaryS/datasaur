@@ -28,49 +28,122 @@ const makeSingular = function(dino){
 }
 
 const truncateSpecies = function(dino){
-  if (dino.species.length > 10 ){
-    dino.species = dino.species.slice(0,7)
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  };
+  if (originalArray.species.length > 10 ){
+    originalArray.species = originalArray.species.slice(0,7)+ "..."
+    
     }
-  return dino
+return originalArray 
 }
 
 const makeExtinct = function(dino){
-  dino.extinct = true
-  return dino
+
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+
+  originalArray.extinct = true
+  return originalArray
 }
 
 
 const isCarnivore = function(dino){
-  return dino.carnivore === true
+
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+
+  
+  return originalArray.carnivore === true
 }
 
 
 const isExtinct = function(dino){
-  return dino.extinct === true
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+
+  return originalArray.extinct === true
 }
 
 const isTriassic = function(dino){
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+
   
+  return originalArray.period === 'Triassic'
+}
+
+
+
+const isNotTriassic = function(dino){
   
-  return dino.period === 'Triassic'
+
+  
+  return   (dino.period !== "Triassic")
 }
 
 const isJurassic = function(dino){
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+
   
-  
-  return dino.period === 'Jurassic'
+  return originalArray.period === 'Jurassic'
 }
 
 const isCretaceous = function(dino){
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+
   
-  
-  return dino.period === 'Cretaceous'
+  return originalArray.period === 'Cretaceous'
 }
 
-const isntTriassic = function(dino){
+const isNotExtinct = function(dino){
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+  return originalArray.extinct === false
+}
   
-  
-  return dino.period === 'Cretaceous' || dino.period === 'Jurassic'
+
+const herbavore = function(dino){
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+  return originalArray.carnivore === false
 }
 
 const isFirstAlphabeticallyBySpecies = function (name1, name2) {
@@ -126,16 +199,63 @@ const isInPeriodOrder = function (name1, name2) {
 /***********************
  * ITERATION FUNCTIONS *
  **********************/
-const singularizeDinos= function(dino){
+const singularizeDinos = function(dino){
   return dino.map(makeSingular)
 }
+const truncateDinos = function(dino){
+  return dino.map(truncateSpecies)
+}
 
-const truncateDinos= function(dino){
-return dino.map(truncateSpecies)
+const makeAllExtinct = function(dino){
+  return dino.map(makeExtinct)
+}
+
+const carnivoresOnly= function(dino){
+return dino.filter(isCarnivore)
+}
+
+const herbivoresOnly= function(dino){
+return dino.filter(herbavore)
+}
+
+const extinctOnly = function(dino){
+  return dino.filter(isExtinct)
 }
 
 
+const notExtinct = function(dino){
+  return dino.filter(isNotExtinct)
+}
 
+const triassicOnly = function(dino){
+  return dino.filter(isTriassic)
+}
+const notTriassic = function(dino){
+  return dino.filter(isNotTriassic)
+}
+
+const bySpecies = function (dino){
+  const copyDino = dino.slice()
+    return copyDino.sort(isFirstAlphabeticallyBySpecies)
+  }
+  
+  const byExtinctLast = function (dino){
+    const copyDino = dino.slice()
+    return copyDino.sort(extinctIsLast)
+  }
+  
+  const byCarnivoresFirst = function (dino){
+  const clonedDino = dino.slice()
+  
+  return clonedDino.sort(carnivoreIsFirst)
+  
+  }
+  
+  const byPeriod = function (dino){
+  const clonedDino = dino.slice()
+  
+  return clonedDino.sort(isInPeriodOrder)
+  }
 /*********************************
  * TEST SETUP CODE - DON'T TOUCH!*
  ********************************/
