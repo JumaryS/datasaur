@@ -2,11 +2,137 @@
  * HELPER FUNCTIONS *
  ********************/
 
+const makeDino = function(species,period,carnivore,extinct = false){
+  const dino = {
+    species: species,
+    period: period,
+    carnivore: carnivore,
+    extinct: extinct,
+  };
+
+  return dino;
+}
+
+const makeSingular = function(dino){
+
+  const originalArray = {
+    species: dino.species,
+    period: dino.period,
+    carnivore: dino.carnivore,
+    extinct: dino.extinct,
+  }
+  if (originalArray.species.endsWith('us')){
+    originalArray.species = originalArray.species.slice(0,originalArray.species.length - 2)}
+    
+  return originalArray
+}
+
+const truncateSpecies = function(dino){
+  if (dino.species.length > 10 ){
+    dino.species = dino.species.slice(0,7)
+    }
+  return dino
+}
+
+const makeExtinct = function(dino){
+  dino.extinct = true
+  return dino
+}
+
+
+const isCarnivore = function(dino){
+  return dino.carnivore === true
+}
+
+
+const isExtinct = function(dino){
+  return dino.extinct === true
+}
+
+const isTriassic = function(dino){
+  
+  
+  return dino.period === 'Triassic'
+}
+
+const isJurassic = function(dino){
+  
+  
+  return dino.period === 'Jurassic'
+}
+
+const isCretaceous = function(dino){
+  
+  
+  return dino.period === 'Cretaceous'
+}
+
+const isntTriassic = function(dino){
+  
+  
+  return dino.period === 'Cretaceous' || dino.period === 'Jurassic'
+}
+
+const isFirstAlphabeticallyBySpecies = function (name1, name2) {
+  if (name1.species > name2.species) {
+    return 1;
+  } else if (name1.species < name2.species) {
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
+const extinctIsLast = function (name1, name2) {
+  if (name1.extinct > name2.extinct) {
+    return 1;
+  } else if (name1.extinct < name2.extinct) {
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
+const carnivoreIsFirst = function (name1, name2) {
+  if (name1.carnivore > name2.carnivore) {
+    return -1;
+  } else if (name1.carnivore < name2.carnivore) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+const isInPeriodOrder = function (name1, name2) {
+  if (name1.period === 'Jurassic' && name2.period === 'Triassic') {
+    return 1;
+  } else if (name1.period === 'Cretaceous' && name2.period === 'Triassic') {
+    return 1;
+  } else if (name1.period === 'Cretaceous' && name2.period === 'Jurassic'){
+    return 1;
+  }else if (name1.period === 'Jurassic' && name2.period === 'Cretaceous') {
+    return -1;
+  }else if (name1.period === 'Triassic' && name2.period === 'Cretaceous') {
+    return -1
+  }else if (name1.period === 'Triassic' && name2.period === 'Jurassic') {
+    return -1;
+  }else {
+    return 0
+  }
+}
+
+
 
 
 /***********************
  * ITERATION FUNCTIONS *
  **********************/
+const singularizeDinos= function(dino){
+  return dino.map(makeSingular)
+}
+
+const truncateDinos= function(dino){
+return dino.map(truncateSpecies)
+}
 
 
 
